@@ -1,33 +1,33 @@
 import React from "react";
 import MoviesPresenter from "./MoviesPresenter";
-import {movies} from "../../api";
+import { movies } from "../../api";
 
 export default class MoviesContainer extends React.Component {
     state = {
         loading: true,
-        upcoming : null,
-        popular:null,
-        nowPlaying:null,
-        error:null
+        upcoming: null,
+        popular: null,
+        nowPlaying: null,
+        error: null
     };
 
-    async componentDidMount(){
+    async componentDidMount() {
         let upcoming, popular, nowPlaying, error;
-        try{
+        try {
             ({
-                data : {results : upcoming}
+                data: { results: upcoming }
             } = await movies.getUpcoming());
             ({
-                data : {results : popular}
-             } = await movies.getPopular());
+                data: { results: popular }
+            } = await movies.getPopular());
             ({
-                data : {results : nowPlaying}
-             } = await movies.getNowPlaying());
-        }catch(error){
+                data: { results: nowPlaying }
+            } = await movies.getNowPlaying());
+        } catch (error) {
             error = "Can't get Movies.";
-        }finally{
+        } finally {
             this.setState({
-                loading:false,
+                loading: false,
                 error,
                 upcoming, popular, nowPlaying
             })
@@ -36,6 +36,6 @@ export default class MoviesContainer extends React.Component {
 
     render() {
         const { loading, upcoming, popular, nowPlaying } = this.state;
-        return <MoviesPresenter loading={loading} />;
+        return <MoviesPresenter loading={loading} upcoming={upcoming} popular={popular} nowPlaying={nowPlaying} />;
     }
 }
