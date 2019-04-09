@@ -20,13 +20,29 @@ class DetailContainer extends Component {
             overview
         } } } } = props;
         this.state = {
+            isMovie: false,
             id,
             posterPhoto,
             backgroundPhoto,
             title,
             voteAvg,
-            overview
+            overview,
+            loading: true
         };
+    }
+
+    async componentDidMount() {
+        let error, genres;
+
+        try {
+
+        } catch{
+
+        } finally {
+            this.setState({
+                loading: false
+            })
+        }
     }
 
     render() {
@@ -35,7 +51,8 @@ class DetailContainer extends Component {
             backgroundPhoto,
             title,
             voteAvg,
-            overview } = this.state;
+            overview,
+            loading } = this.state;
 
         return (
             <DetailPresenter
@@ -45,6 +62,7 @@ class DetailContainer extends Component {
                 title={title}
                 voteAvg={voteAvg}
                 overview={overview}
+                loading={loading}
             />
         );
     }
