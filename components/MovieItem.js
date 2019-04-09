@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TouchableWithoutFeedback } from "react-native";
-import {withNavigation} from "react-navigation";
+import { withNavigation } from "react-navigation";
 import styled from "styled-components";
 import MoviePoster from "./MoviePoster";
 import MovieRating from "./MovieRating";
@@ -35,7 +35,17 @@ const Overview = styled.Text`
 `;
 
 const MovieItem = ({ id, posterPhoto, title, voteAvg, horizontal = false, overview, isMovie = true, navigation }) => (
-    <TouchableWithoutFeedback onPress={()=> navigation.navigate({routeName:"Detail", params:{isMovie, id}})}>
+    <TouchableWithoutFeedback onPress={() => navigation.navigate({
+        routeName: "Detail", params: {
+            isMovie,
+            id,
+            posterPhoto,
+            backgroundPhoto: null,
+            title,
+            voteAvg,
+            overview
+        }
+    })}>
         {
             horizontal ? (
                 <HContainer>

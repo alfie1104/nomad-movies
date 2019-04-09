@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { withNavigation } from "react-navigation";
 import makePhotoUrl from "../utils/makePhotoUrl";
 import Layout from "../constants/Layout";
 import MoviePoster from "./MoviePoster";
@@ -59,7 +60,7 @@ const BtnText = styled.Text`
     font-size:12px;
 `;
 
-const MovieSlide = ({ id, posterPhoto, backgroundPhoto, title, voteAvg, overview }) => (
+const MovieSlide = ({ id, posterPhoto, backgroundPhoto, title, voteAvg, overview, navigation }) => (
     <Container>
         <BgImage source={{ uri: makePhotoUrl(backgroundPhoto) }} />
         <Content>
@@ -73,7 +74,7 @@ const MovieSlide = ({ id, posterPhoto, backgroundPhoto, title, voteAvg, overview
                             : overview}
                     </Overview>
                 ) : null}
-                <BtnContainer>
+                <BtnContainer onPress={() => navigation.navigate({ routeName: "Detail", params: { isMovie: false, id, posterPhoto, backgroundPhoto, title, voteAvg, overview } })}>
                     <BtnText>More details</BtnText>
                 </BtnContainer>
             </Column>
@@ -90,4 +91,4 @@ MovieSlide.propTypes = {
     overview: PropTypes.string.isRequired
 }
 
-export default MovieSlide;
+export default withNavigation(MovieSlide);
