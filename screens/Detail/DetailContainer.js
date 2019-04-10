@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text } from "react-native";
 import DetailPresenter from "./DetailPresenter";
+import { movies, tv } from '../../api';
 
 class DetailContainer extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -32,15 +33,29 @@ class DetailContainer extends Component {
     }
 
     async componentDidMount() {
-        let error, genres;
+        const { isMovie, id } = this.state;
+
+        let error, genres, overview, status, date, backgroundPhoto;
 
         try {
-
-        } catch{
+            if (isMovie) {
+                ({ genres, overview, status, release_date: date, backdrop_path: backgroundPhoto } = await movies.getMovie(id));
+            } else {
+                ({ genres, overview, status, first_air_date: date, backdrop_path: backgroundPhoto } = await tv.getShow(id));
+            }
+        } catch (error) {
 
         } finally {
-            this.setState({
-                loading: false
+            this.setState(prev => {
+                return {
+                    ...prev,
+                    loading: false,
+                    genres,
+                    overview,
+                    status,
+                    date,
+                    backgroundPhoto
+                }
             })
         }
     }
