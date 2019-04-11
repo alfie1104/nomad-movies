@@ -13,9 +13,7 @@ export const movies = {
     getUpcoming: () => api.get("movie/upcoming"),
     getPopular: () => api.get("movie/popular"),
     getMovie: (id) => api.get(`movie/${id}`, {
-        params: {
-            append_to_response: "videos"
-        }
+        params: { append_to_response: "videos" }
     }),
     searchMovies: (term) => api.get(`search/movie`, {
         params: {

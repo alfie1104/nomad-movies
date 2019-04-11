@@ -12,16 +12,23 @@ class DetailContainer extends Component {
 
     constructor(props) {
         super(props);
-        const { navigation: { state: { params: {
-            id,
-            posterPhoto,
-            backgroundPhoto,
-            title,
-            voteAvg,
-            overview
-        } } } } = props;
+        const {
+            navigation: {
+                state: {
+                    params: {
+                        isMovie,
+                        id,
+                        posterPhoto,
+                        backgroundPhoto,
+                        title,
+                        voteAvg,
+                        overview
+                    }
+                }
+            }
+        } = props;
         this.state = {
-            isMovie: false,
+            isMovie,
             id,
             posterPhoto,
             backgroundPhoto,
@@ -39,45 +46,50 @@ class DetailContainer extends Component {
 
         try {
             if (isMovie) {
-                ({ genres, overview, status, release_date: date, backdrop_path: backgroundPhoto } = await movies.getMovie(id));
+                ({ data: { genres, overview, status, release_date: date, backdrop_path: backgroundPhoto } } = await movies.getMovie(id));
             } else {
-                ({ genres, overview, status, first_air_date: date, backdrop_path: backgroundPhoto } = await tv.getShow(id));
+                ({ data: { genres, overview, status, first_air_date: date, backdrop_path: backgroundPhoto } } = await tv.getShow(id));
             }
         } catch (error) {
-
+            console.log(error);
         } finally {
-            this.setState(prev => {
-                return {
-                    ...prev,
-                    loading: false,
-                    genres,
-                    overview,
-                    status,
-                    date,
-                    backgroundPhoto
-                }
-            })
+            this.setState({
+                loading: false,
+                genres,
+                overview,
+                status,
+                date,
+                backgroundPhoto,
+            });
         }
     }
 
     render() {
-        const { id,
+        const {
             posterPhoto,
             backgroundPhoto,
             title,
             voteAvg,
             overview,
-            loading } = this.state;
+            loading,
+            date,
+            status,
+            isMovie,
+            genres
+        } = this.state;
 
         return (
             <DetailPresenter
-                id={id}
                 posterPhoto={posterPhoto}
                 backgroundPhoto={backgroundPhoto}
                 title={title}
                 voteAvg={voteAvg}
                 overview={overview}
                 loading={loading}
+                status={status}
+                date={date}
+                isMovie={isMovie}
+                genres={genres}
             />
         );
     }
