@@ -72,7 +72,7 @@ const Genres = styled.Text`
     color:${TINT_COLOR}
     font-size:12px;
     margin-top:10px;
-    width:80%;
+    width:95%;
 `;
 
 

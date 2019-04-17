@@ -74,7 +74,7 @@ const MovieSlide = ({ id, posterPhoto, backgroundPhoto, title, voteAvg, overview
                             : overview}
                     </Overview>
                 ) : null}
-                <BtnContainer onPress={() => navigation.navigate({ routeName: "Detail", params: { isMovie: false, id, posterPhoto, backgroundPhoto, title, voteAvg, overview } })}>
+                <BtnContainer onPress={() => navigation.navigate({ routeName: "Detail", params: { isMovie: true, id, posterPhoto, backgroundPhoto, title, voteAvg, overview } })}>
                     <BtnText>More details</BtnText>
                 </BtnContainer>
             </Column>
